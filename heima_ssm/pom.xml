@@ -13,6 +13,7 @@
         <module>heima_ssm_domain</module>
         <module>heima_ssm_dao</module>
         <module>heima_ssm_service</module>
+        <module>heima_ssm_utils</module>
     </modules>
     <properties>
         <spring.version>5.0.2.RELEASE</spring.version>
@@ -23,7 +24,13 @@
         <spring.security.version>5.0.1.RELEASE</spring.security.version>
     </properties>
 
-    <dependencies>        <!-- spring -->
+    <dependencies>
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.1.2</version>
+        </dependency>
+        <!-- spring -->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
