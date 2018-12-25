@@ -27,5 +27,10 @@ public class ProductController {
         productService.save(product);
         return "redirect:findAll.do";
     }
+    @RequestMapping("/delete")
+    public String delete(String id){
+        productService.delete(id);
+        return "redirect:findAll.do";
+    }
 
 }

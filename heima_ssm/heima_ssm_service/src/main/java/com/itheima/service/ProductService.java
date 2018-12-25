@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface ProductService {
     List<Product> findAll();
+    void delete(String id);
     void save(Product product);
 }

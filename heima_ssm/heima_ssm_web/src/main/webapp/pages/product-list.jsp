@@ -144,6 +144,32 @@
 	href="${pageContext.request.contextPath}/plugins/bootstrap-slider/slider.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+
+	<script>
+		function deleteById() {
+            var count=0;
+		    var ids = document.getElementsByName("ids");
+			for(var i=0;i<ids.length;i++){
+			    if(ids[i].checked){
+			        count++;
+				}
+			}
+			if(count==0){
+			    alert("请勾选要删除的产品！");
+			}else{
+                var flag = confirm("确定要删除吗");
+                if(flag==true){
+                    for(var i=0;i<ids.length;i++){
+                        if(ids[i].checked){
+                            alert(ids[i].value)
+                            location.href="${pageContext.request.contextPath}/product/delete.do?id="+ids[i].value;
+                        }
+                    }
+                }
+			}
+
+        }
+	</script>
 </head>
 
 <body class="hold-transition skin-purple sidebar-mini">
@@ -198,7 +224,7 @@
 											onclick="location.href='${pageContext.request.contextPath}/pages/product-add.jsp'">
 											<i class="fa fa-file-o"></i> 新建
 										</button>
-										<button type="button" class="btn btn-default" title="删除">
+										<button type="button" class="btn btn-default" title="删除" onclick="deleteById()">
 											<i class="fa fa-trash-o"></i> 删除
 										</button>
 										<button type="button" class="btn btn-default" title="开启">
@@ -217,7 +243,7 @@
 								<div class="has-feedback">
 									<input type="text" class="form-control input-sm"
 										placeholder="搜索"> <span
-										class="glyphicon glyphicon-search"></span>
+										class="glyphicon glyphicon-search form-control-feedback"></span>
 								</div>
 							</div>
 							<!--工具栏/-->
@@ -247,7 +273,7 @@
 									<c:forEach items="${products}" var="product">
 
 										<tr>
-											<td><input name="ids" type="checkbox"></td>
+											<td><input name="ids" type="checkbox" value="${product.id}"></td>
 											<td>${product.id }</td>
 											<td>${product.productNum }</td>
 											<td>${product.productName }</td>

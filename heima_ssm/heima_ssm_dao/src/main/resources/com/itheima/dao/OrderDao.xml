@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--private String orderNum;
+    private Date orderTime;
+    private String orderTimeStr;
+    private int orderStatus;
+    private int peopleCount;
+    private Product product;
+    private List<Traveller> travellers;
+    private Member member;
+    private Integer payType;
+    private String payTypeStr;
+    private String orderDesc;-->
+<mapper namespace="com.itheima.dao.OrderDao">
+    <resultMap id="order" type="order">
+        <id property="id" column="id"></id>
+        <result property="orderNum" column="orderNum"></result>
+        <result property="orderTime" column="orderTime"></result>
+        <result property="orderStatus" column="orderStatus"></result>
+        <result property="peopleCount" column="peopleCount"></result>
+        <result property="payType" column="payType"></result>
+        <result property="payTypeStr" column="payTypeStr"></result>
+        <result property="orderDesc" column="orderDesc"></result>
+    </resultMap>
+</mapper>

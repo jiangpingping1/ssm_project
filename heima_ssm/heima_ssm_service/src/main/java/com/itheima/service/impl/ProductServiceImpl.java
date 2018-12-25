@@ -17,6 +17,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public void delete(String id) {
+        productDao.delete(id);
+    }
+
+    @Override
     public void save(Product product) {
         productDao.save(product);
     }
