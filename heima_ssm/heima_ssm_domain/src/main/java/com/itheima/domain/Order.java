@@ -1,5 +1,7 @@
 package com.itheima.domain;
 
+import com.itheima.utils.DateUtils;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -9,8 +11,9 @@ public class Order implements Serializable {
     private String orderNum;
     private Date orderTime;
     private String orderTimeStr;
-    private int orderStatus;
-    private int peopleCount;
+    private Integer orderStatus;
+    private String orderStatusStr;
+    private Integer peopleCount;
     private Product product;
     private List<Traveller> travellers;
     private Member member;
@@ -43,6 +46,9 @@ public class Order implements Serializable {
     }
 
     public String getOrderTimeStr() {
+        if(orderTime!=null){
+          orderTimeStr= DateUtils.date2String(orderTime,"yyyy-MM-dd HH:mm:ss");
+        }
         return orderTimeStr;
     }
 
@@ -50,19 +56,35 @@ public class Order implements Serializable {
         this.orderTimeStr = orderTimeStr;
     }
 
-    public int getOrderStatus() {
+    public String getOrderStatusStr() {
+        if(orderStatus!=null){
+            if(orderStatus==0){
+                orderStatusStr="未支付";
+            }
+            if(orderStatus==1){
+                orderStatusStr="已支付";
+            }
+        }
+        return orderStatusStr;
+    }
+
+    public void setOrderStatusStr(String orderStatusStr) {
+        this.orderStatusStr = orderStatusStr;
+    }
+
+    public Integer getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(int orderStatus) {
+    public void setOrderStatus(Integer orderStatus) {
         this.orderStatus = orderStatus;
     }
 
-    public int getPeopleCount() {
+    public Integer getPeopleCount() {
         return peopleCount;
     }
 
-    public void setPeopleCount(int peopleCount) {
+    public void setPeopleCount(Integer peopleCount) {
         this.peopleCount = peopleCount;
     }
 
@@ -99,6 +121,17 @@ public class Order implements Serializable {
     }
 
     public String getPayTypeStr() {
+        if(payType!=null){
+            if(payType==0){
+                payTypeStr="支付宝";
+            }
+            if(payType==1){
+                payTypeStr="微信";
+            }
+            if(payType==2){
+                payTypeStr="其他";
+            }
+        }
         return payTypeStr;
     }
 

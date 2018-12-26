@@ -4,10 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.itheima.dao.ProductDao">
-    <select id="findAll" resultType="product">
-        select * from product
+    <select id="findAll" resultType="product" parameterType="string">
+        select * from product where productNum like '%${value}%' or productName like '%${value}%' or cityName like '%${value}%' or productDesc like '%${value}%'
     </select>
-    <select id="findById" resultType="product" parameterType="int">
+    <select id="findById" resultType="product" parameterType="string">
         select * from product where id=#{id}
     </select>
     <insert id="save" parameterType="product">
@@ -17,4 +17,9 @@
     <delete id="delete" parameterType="string">
         delete from product where id=#{id}
     </delete>
+    <update id="update" parameterType="product">
+        update product set productNum=#{productNum},productName=#{productName},departureTime=#{departureTime},
+        cityName=#{cityName},productPrice=#{productPrice},productStatus=#{productStatus},productDesc=#{productDesc}
+        where id=#{id}
+    </update>
 </mapper>

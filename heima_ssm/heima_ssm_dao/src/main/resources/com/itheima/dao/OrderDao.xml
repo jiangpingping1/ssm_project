@@ -2,17 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!--private String orderNum;
-    private Date orderTime;
-    private String orderTimeStr;
-    private int orderStatus;
-    private int peopleCount;
-    private Product product;
-    private List<Traveller> travellers;
-    private Member member;
-    private Integer payType;
-    private String payTypeStr;
-    private String orderDesc;-->
+
 <mapper namespace="com.itheima.dao.OrderDao">
     <resultMap id="order" type="order">
         <id property="id" column="id"></id>
@@ -21,7 +11,15 @@
         <result property="orderStatus" column="orderStatus"></result>
         <result property="peopleCount" column="peopleCount"></result>
         <result property="payType" column="payType"></result>
-        <result property="payTypeStr" column="payTypeStr"></result>
         <result property="orderDesc" column="orderDesc"></result>
+        <association property="product" column="productId" javaType="product" select="com.itheima.dao.ProductDao.findById"></association>
+        <association property="member" column="memberId" javaType="member" select="com.itheima.dao.MemberDao.findById"></association>
+        <collection property="travellers" column="id" ofType="traveller" select="com.itheima.dao.TravellerDao.findById"></collection>
     </resultMap>
+    <select id="findAll" resultMap="order">
+        select * from orders
+    </select>
+    <select id="findById" resultMap="order" parameterType="string">
+        select * from orders where id=#{id}
+    </select>
 </mapper>
