@@ -146,6 +146,40 @@
 	href="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
 
 	<script>
+		function open() {
+            var count=0;
+            var ids = document.getElementsByName("ids");
+            for(var i=0;i<ids.length;i++){
+                if(ids[i].checked){
+                    count++;
+                }
+            }
+            if(count==0){
+                alert("请勾选要开启的产品！");
+            }else{
+                var flag = confirm("确定要开启吗");
+                if(flag==true){
+                    /*document.getElementById("form").submit();*/
+                }
+            }
+        }
+        function close() {
+            var count=0;
+            var ids = document.getElementsByName("ids");
+            for(var i=0;i<ids.length;i++){
+                if(ids[i].checked){
+                    count++;
+                }
+            }
+            if(count==0){
+                alert("请勾选要关闭的产品！");
+            }else{
+                var flag = confirm("确定要关闭吗");
+                if(flag==true){
+                    /*document.getElementById("form").submit();*/
+                }
+            }
+        }
 		function deleteById() {
             var count=0;
 		    var ids = document.getElementsByName("ids");
@@ -226,13 +260,13 @@
 										<button type="button" class="btn btn-default" title="删除" onclick="deleteById()">
 											<i class="fa fa-trash-o"></i> 删除
 										</button>
-										<button type="button" class="btn btn-default" title="开启">
+										<button type="button" class="btn btn-default" title="开启" onclick="open()">
 											<i class="fa fa-check"></i> 开启
 										</button>
-										<button type="button" class="btn btn-default" title="屏蔽">
+										<button type="button" class="btn btn-default" title="屏蔽" onclick="close()">
 											<i class="fa fa-ban"></i> 屏蔽
 										</button>
-										<button type="button" class="btn btn-default" title="刷新">
+										<button type="button" class="btn btn-default" title="刷新" onclick="location.reload()">
 											<i class="fa fa-refresh"></i> 刷新
 										</button>
 									</div>
@@ -285,7 +319,7 @@
 											<td>${product.productDesc }</td>
 											<td class="text-center">${product.productStatusStr }</td>
 											<td class="text-center">
-												<button type="button" class="btn bg-olive btn-xs">详情</button>
+												<button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/product/findById.do?id=${product.id}'">详情</button>
 												<button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/product/findById.do?id=${product.id}'">编辑</button>
 											</td>
 										</tr>

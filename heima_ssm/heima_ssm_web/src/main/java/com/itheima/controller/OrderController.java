@@ -6,6 +6,7 @@ import com.itheima.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -16,10 +17,11 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
     @RequestMapping("/findAll.do")
-    public ModelAndView findAll(int pageNum,int pageSize){
+    public ModelAndView findAll(@RequestParam(required = false,defaultValue = "1")int pageNum,@RequestParam(required = false,defaultValue = "1")int pageSize,@RequestParam(required = false) String str){
         ModelAndView modelAndView = new ModelAndView();
-        List<Order> orders = orderService.findAll(pageNum,pageSize);
+        List<Order> orders = orderService.findAll(str,pageNum,pageSize);
         PageInfo<Order> pageInfo = new PageInfo<>(orders);
+        modelAndView.addObject("str",str);
         modelAndView.addObject("pageInfo",pageInfo);
         modelAndView.setViewName("orders-list");
         return modelAndView;

@@ -207,7 +207,7 @@
 										<button type="button" class="btn btn-default" title="屏蔽">
 											<i class="fa fa-ban"></i> 屏蔽
 										</button>
-										<button type="button" class="btn btn-default" title="刷新">
+										<button type="button" class="btn btn-default" title="刷新" onclick="location.reload()">
 											<i class="fa fa-refresh"></i> 刷新
 										</button>
 									</div>
@@ -215,9 +215,10 @@
 							</div>
 							<div class="box-tools pull-right">
 								<div class="has-feedback">
-									<input type="text" class="form-control input-sm"
-										placeholder="搜索"> <span
-										class="glyphicon glyphicon-search form-control-feedback"></span>
+									<input type="text" class="form-control input-sm" placeholder="搜索" id="findStr" value="${str}">
+									<a href="javascript:find()">
+										<span class="glyphicon glyphicon-search"></span>
+									</a>
 								</div>
 							</div>
 							<!--工具栏/-->
@@ -286,11 +287,11 @@
                         <div class="form-group form-inline">
                             总共${pageInfo.pages}页，共${pageInfo.total}条数据。 每页
                             <select class="form-control" id="changePageSize" onchange="changePageSize()">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                                <option <c:if test="${pageInfo.pageSize==1}">selected</c:if>>1</option>
+                                <option <c:if test="${pageInfo.pageSize==2}">selected</c:if>>2</option>
+                                <option <c:if test="${pageInfo.pageSize==3}">selected</c:if>>3</option>
+                                <option <c:if test="${pageInfo.pageSize==4}">selected</c:if>>4</option>
+                                <option <c:if test="${pageInfo.pageSize==5}">selected</c:if>>5</option>
                             </select> 条
                         </div>
                     </div>
@@ -298,20 +299,20 @@
                     <div class="box-tools pull-right">
                         <ul class="pagination">
                             <li>
-                                <a href="${pageContext.request.contextPath}/order/findAll.do?pageNum=1&pageSize=${pageInfo.pageSize}" aria-label="Previous">首页</a>
+                                <a href="${pageContext.request.contextPath}/order/findAll.do?pageNum=1&pageSize=${pageInfo.pageSize}&str=${str}" aria-label="Previous">首页</a>
                             </li>
-                            <li><a href="${pageContext.request.contextPath}/order/findAll.do?pageNum=${pageInfo.pageNum-1}&pageSize=${pageInfo.pageSize}">上一页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/order/findAll.do?pageNum=${pageInfo.pageNum-1}&pageSize=${pageInfo.pageSize}&str=${str}">上一页</a></li>
                             <c:forEach begin="1" end="${pageInfo.pages}" var="i">
 								<c:if test="${pageInfo.pageNum==i}">
-									<li class="active"><a href="${pageContext.request.contextPath}/order/findAll.do?pageNum=${i}&pageSize=${pageInfo.pageSize}">${i}</a></li>
+									<li class="active"><a href="${pageContext.request.contextPath}/order/findAll.do?pageNum=${i}&pageSize=${pageInfo.pageSize}&str=${str}">${i}</a></li>
 								</c:if>
 								<c:if test="${pageInfo.pageNum!=i}">
-									<li><a href="${pageContext.request.contextPath}/order/findAll.do?pageNum=${i}&pageSize=${pageInfo.pageSize}">${i}</a></li>
+									<li><a href="${pageContext.request.contextPath}/order/findAll.do?pageNum=${i}&pageSize=${pageInfo.pageSize}&str=${str}">${i}</a></li>
 								</c:if>
 							</c:forEach>
-                            <li><a href="${pageContext.request.contextPath}/order/findAll.do?pageNum=${pageInfo.pageNum+1}&pageSize=${pageInfo.pageSize}">下一页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/order/findAll.do?pageNum=${pageInfo.pageNum+1}&pageSize=${pageInfo.pageSize}&str=${str}">下一页</a></li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/order/findAll.do?pageNum=${pageInfo.pages}&pageSize=${pageInfo.pageSize}" aria-label="Next">尾页</a>
+                                <a href="${pageContext.request.contextPath}/order/findAll.do?pageNum=${pageInfo.pages}&pageSize=${pageInfo.pageSize}&str=${str}" aria-label="Next">尾页</a>
                             </li>
                         </ul>
                     </div>
@@ -431,12 +432,16 @@
 	<script
 		src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 	<script>
+        function find() {
+            var str = document.getElementById("findStr").value;
+            location.href="${pageContext.request.contextPath}/order/findAll.do?pageNum=1&pageSize=5&str="+str;
+        }
 		function changePageSize() {
 			//获取下拉框的值
 			var pageSize = $("#changePageSize").val();
 
 			//向服务器发送请求，改变没页显示条数
-			location.href = "${pageContext.request.contextPath}/order/findAll.do?pageNum=1&pageSize="
+			location.href = "${pageContext.request.contextPath}/order/findAll.do?str=${str}&pageNum=1&pageSize="
 					+ pageSize;
 		}
 		$(document).ready(function() {

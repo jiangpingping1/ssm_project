@@ -13,9 +13,9 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
     private OrderDao orderDao;
     @Override
-    public List<Order> findAll(int pageNum,int pageSize) {
+    public List<Order> findAll(String str,int pageNum,int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
-        return orderDao.findAll();
+        return orderDao.findAll(str);
     }
 
     @Override

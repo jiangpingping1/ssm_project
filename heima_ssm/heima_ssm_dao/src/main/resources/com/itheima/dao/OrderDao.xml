@@ -14,10 +14,11 @@
         <result property="orderDesc" column="orderDesc"></result>
         <association property="product" column="productId" javaType="product" select="com.itheima.dao.ProductDao.findById"></association>
         <association property="member" column="memberId" javaType="member" select="com.itheima.dao.MemberDao.findById"></association>
-        <collection property="travellers" column="id" ofType="traveller" select="com.itheima.dao.TravellerDao.findById"></collection>
+        <collection property="travellers" column="id" ofType="traveller" select="com.itheima.dao.TravellerDao.findByOrderId"></collection>
     </resultMap>
-    <select id="findAll" resultMap="order">
-        select * from orders
+    <select id="findAll" resultMap="order" parameterType="string">
+        select * from orders where orderNum like '%${value}%' or productId in (select id from product where productName like '%${value}%')
+        or memberId in (select id from member where name like '%${value}%') or orderDesc like '%${value}%'
     </select>
     <select id="findById" resultMap="order" parameterType="string">
         select * from orders where id=#{id}
