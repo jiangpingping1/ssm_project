@@ -7,7 +7,16 @@ public class Role {
     private String id;
     private String roleName;
     private String roleDesc;
+    private Integer Status;
     private List<Permission> permissions;
+
+    public Integer getStatus() {
+        return Status;
+    }
+
+    public void setStatus(Integer status) {
+        Status = status;
+    }
 
     public List<UserInfo> getUsers() {
         return users;
@@ -51,13 +60,13 @@ public class Role {
         this.permissions = permissions;
     }
 
-
     @Override
     public String toString() {
         return "Role{" +
                 "id='" + id + '\'' +
                 ", roleName='" + roleName + '\'' +
                 ", roleDesc='" + roleDesc + '\'' +
+                ", Status=" + Status +
                 ", permissions=" + permissions +
                 ", users=" + users +
                 '}';

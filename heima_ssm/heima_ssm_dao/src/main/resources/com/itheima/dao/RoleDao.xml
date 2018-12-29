@@ -7,9 +7,22 @@
         <id property="id" column="id"></id>
         <result property="roleName" column="roleName"></result>
         <result property="roleDesc" column="roleDesc"></result>
+        <result property="status" column="status"></result>
         <collection property="permissions" column="id" ofType="permission" select="com.itheima.dao.PermissionDao.findByRoleId"></collection>
     </resultMap>
+    <select id="findById" resultMap="role" parameterType="string">
+        select * from role where id=#{id}
+    </select>
     <select id="findByUserId" resultMap="role" parameterType="string">
         select * from role where id in (select roleId from users_role where userId=#{userId})
+    </select>
+    <select id="findAll" resultMap="role" parameterType="string">
+        select * from role where roleName like '%${value}%' or roleDesc like '%${value}%'
+    </select>
+    <select id="findAll2" resultMap="role" parameterType="string">
+        select r.*,ur.status from role r left join users_role ur on ur.userId=#{userId} and ur.roleId=r.id
+    </select>
+    <select id="findAllRoleId" resultType="string">
+        select id from role
     </select>
 </mapper>

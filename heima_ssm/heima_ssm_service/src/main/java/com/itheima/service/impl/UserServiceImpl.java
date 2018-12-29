@@ -1,10 +1,12 @@
 package com.itheima.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.itheima.dao.RoleDao;
 import com.itheima.dao.UserDao;
 import com.itheima.domain.Role;
 import com.itheima.domain.UserInfo;
 import com.itheima.service.UserService;
+import com.itheima.utils.URInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -21,6 +23,8 @@ import java.util.List;
 public class UserServiceImpl implements UserService{
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private RoleDao roleDao;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserInfo userInfo = userDao.findByUsername(username);
@@ -51,4 +55,23 @@ public class UserServiceImpl implements UserService{
     public void save(UserInfo userInfo) {
         userDao.save(userInfo);
     }
+
+    @Override
+    public void update(UserInfo userInfo) {
+        userDao.update(userInfo);
+    }
+
+    @Override
+    public void saveRole(String userId, String[] ids) {
+        if(ids!=null){
+            List<String> allRoleId = roleDao.findAllRoleId();
+            for (String roleId : allRoleId) {
+                userDao.delete(new URInfo(userId,roleId));
+            }
+            for (String roleId : ids) {
+                userDao.insert(new URInfo(userId,roleId));
+            }
+        }
+    }
+
 }

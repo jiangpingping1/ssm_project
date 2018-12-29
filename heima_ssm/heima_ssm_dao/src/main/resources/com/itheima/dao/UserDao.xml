@@ -25,4 +25,13 @@
         insert into users (username,password,email,phoneNum,status)
         values(#{username},#{password},#{email},#{phoneNum},#{status})
     </insert>
+    <update id="update" parameterType="userInfo">
+        update users set password=#{password},email=#{email},phoneNum=#{phoneNum},status=#{status} where id=#{id}
+    </update>
+    <insert id="insert" parameterType="urInfo">
+        insert into users_role values(#{userId},#{roleId},1)
+    </insert>
+    <delete id="delete" parameterType="urInfo">
+        delete from users_role where userId=#{userId} and roleId=#{roleId}
+    </delete>
 </mapper>
