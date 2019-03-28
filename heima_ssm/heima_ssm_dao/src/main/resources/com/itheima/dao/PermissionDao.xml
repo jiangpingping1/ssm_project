@@ -6,4 +6,22 @@
     <select id="findByRoleId" resultType="permission" parameterType="string">
         select * from permission where id in (select permissionId from role_permission where roleId=#{roleId})
     </select>
+    <select id="findAllByRoleId" resultType="permission" parameterType="string">
+        select p.*,rp.status from permission p left join  role_permission rp on rp.permissionId=p.id and rp.roleId=#{roleId}
+    </select>
+    <select id="findAllPermissionId" resultType="string">
+        select id from permission
+    </select>
+    <select id="findAll" resultType="permission" parameterType="string">
+        select * from permission where permissionName like '%${value}%' or url like '%${value}%'
+    </select>
+    <insert id="save" parameterType="permission">
+        insert into permission (permissionName,url) values(#{permissionName},#{url})
+    </insert>
+    <select id="findById" parameterType="string" resultType="permission">
+        select * from permission where id=#{id}
+    </select>
+    <delete id="delete" parameterType="string">
+        delete from permission where id=#{id}
+    </delete>
 </mapper>

@@ -25,4 +25,10 @@
     <select id="findAllRoleId" resultType="string">
         select id from role
     </select>
+    <delete id="delete" parameterType="rpInfo">
+        delete from role_permission where roleId=#{roleId} and permissionId=#{permissionId}
+    </delete>
+    <insert id="insert" parameterType="rpInfo">
+        insert into role_permission values(#{permissionId},#{roleId},1)
+    </insert>
 </mapper>

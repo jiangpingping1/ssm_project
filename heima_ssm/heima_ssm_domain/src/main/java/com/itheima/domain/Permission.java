@@ -6,7 +6,16 @@ public class Permission {
     private String id;
     private String permissionName;
     private String url;
+    private Integer status;
     private List<Role> roles;
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     public String getId() {
         return id;
@@ -46,6 +55,7 @@ public class Permission {
                 "id='" + id + '\'' +
                 ", permissionName='" + permissionName + '\'' +
                 ", url='" + url + '\'' +
+                ", status=" + status +
                 ", roles=" + roles +
                 '}';
     }

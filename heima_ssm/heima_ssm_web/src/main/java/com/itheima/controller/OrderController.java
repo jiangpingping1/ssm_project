@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.itheima.domain.Order;
 import com.itheima.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +18,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
     @RequestMapping("/findAll.do")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView findAll(@RequestParam(required = false,defaultValue = "1")int pageNum,@RequestParam(required = false,defaultValue = "1")int pageSize,@RequestParam(required = false) String str){
         ModelAndView modelAndView = new ModelAndView();
         List<Order> orders = orderService.findAll(str,pageNum,pageSize);

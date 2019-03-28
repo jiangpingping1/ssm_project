@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import sun.misc.resources.Messages_pt_BR;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
     @RequestMapping("/findAll.do")
+    @RolesAllowed({"ROLE_ADMIN","ROLE_USER"})
     public ModelAndView findAll(@RequestParam(required = false) String str,@RequestParam(required = false,defaultValue = "1") int pageNum,@RequestParam(required = false,defaultValue = "5")int pageSize){
         ModelAndView modelAndView = new ModelAndView();
         List<Product> products = productService.findAll(str,pageNum,pageSize);
